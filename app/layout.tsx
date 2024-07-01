@@ -27,7 +27,7 @@ export default function RootLayout({
 			<body className={poppins.className}>
 				<SessionWrapper>
 					<div className="flex justify-between max-w-6xl mx-auto mb-5">
-						<div className="border-r h-screen px-3 hidden sm:block">
+						<div className="border-r h-screen px-3 hidden sm:block sticky top-0">
 							<Sidebar />
 						</div>
 						<div className="w-16 flex-1">{children}</div>

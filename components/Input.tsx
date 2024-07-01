@@ -76,8 +76,9 @@ const Input = () => {
 			name: session?.user.name,
 			username: session?.user.username,
 			text,
-			profileImg: imageUrl,
+			profileImg: session?.user.image,
 			timestamp: serverTimestamp(),
+			image: imageUrl || null,
 		});
 		setImageLoading(false);
 		setImage(null);
