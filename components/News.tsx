@@ -42,7 +42,7 @@ const News = () => {
 				<a
 					key={index}
 					href={article.url}
-					className="py-2 flex items-center space-x-2">
+					className="py-2 flex items-center space-x-2 hover:bg-gray-200 transition-all duration-200">
 					<div>
 						<h1 className="text-sm font-bold">{article.title}</h1>
 						<span className="text-xs font-medium text-gray-500">
@@ -59,7 +59,7 @@ const News = () => {
 				</a>
 			))}
 			<button
-				className="text-sm text-blue-400"
+				className="text-xs text-blue-400"
 				onClick={() => setArticleNum(articleNum + 3)}>
 				Load more...
 			</button>
