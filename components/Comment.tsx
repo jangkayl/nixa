@@ -14,6 +14,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
+import Moment from "react-moment";
 
 const Comment = ({ commentId, comment, originalId }: any) => {
 	const { data: session } = useSession();
@@ -94,7 +95,14 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 								@{comment.username}
 							</p>
 						</div>
-						<p className="text-[0.84rem] pt-2">{comment.comment}</p>
+						<div className="flex items-center pt-2 gap-2">
+							<p className="text-[0.84rem]">{comment.comment}</p>
+							<Moment
+								fromNow
+								className="text-[0.71rem] text-gray-400">
+								{comment.timestamp.toDate()}
+							</Moment>
+						</div>
 						<div className="flex items-center pt-1 text-gray-500">
 							{isLiked ? (
 								<HiHeart
