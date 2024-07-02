@@ -18,6 +18,10 @@ import Moment from "react-moment";
 import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { useRecoilState } from "recoil";
+import { likeCommentIdState, modalState } from "@/app/atom/modalAtom";
+import useComLikeLongPress from "@/app/hooks/ComLikeLongPress";
+import ComLikeModal from "./ComLikeModal";
 
 const Comment = ({ commentId, comment, originalId }: any) => {
 	const { data: session } = useSession();
@@ -25,9 +29,20 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 	const [isLiked, setIsLiked] = useState(false);
 	const [likes, setLikes] = useState<DocumentData[]>([]);
 	const [modal, setModal] = useState(false);
+	const [open, setOpen] = useRecoilState(modalState);
+	const [likeComment, setLikeComment] = useRecoilState(likeCommentIdState);
+	const [isModalVisible, setModalVisible] = useState(false);
+	const [isExpanded, setIsExpanded] = useState(false);
+
+	const showModal = () => setModalVisible(true);
+	const hideModal = () => setModalVisible(false);
+
+	const id = commentId;
+	const longPressEvent = useComLikeLongPress(showModal, 500, id);
 
 	const likePost = async () => {
 		if (session && session.user && session.user.uid) {
+			setLikeComment(commentId);
 			if (isLiked) {
 				await deleteDoc(
 					doc(
@@ -52,7 +67,9 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 						session.user.uid
 					),
 					{
+						userImg: session.user.image,
 						username: session.user.username,
+						name: session.user.name,
 						timestamp: serverTimestamp(),
 					}
 				);
@@ -95,8 +112,9 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 			});
 	};
 
-	console.log(session?.user.uid);
-	console.log(comment.uid);
+	const toggleExpand = () => {
+		setIsExpanded(!isExpanded);
+	};
 
 	return (
 		<div>
@@ -111,15 +129,21 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 							className="rounded-full p-[1px] border-gray-300 border"
 						/>
 					</div>
-					<div className="flex-1 pl-3">
-						<div className="flex items-center gap-1 truncate max-w-[15.8rem] sm:max-w-full">
+					<div className="flex-1 pl-3 overflow-x-hidden">
+						<div className="flex items-center gap-1 truncate">
 							<p className="text-sm font-bold truncate">{comment.name}</p>
 							<p className="text-xs text-gray-400 truncate">
 								@{comment.username}
 							</p>
 						</div>
-						<div className="flex items-center pt-2 gap-2">
-							<p className="text-[0.84rem]">{comment.comment}</p>
+						<div className="flex items-center pt-2 gap-2 w-auto ">
+							<p
+								className={`text-[0.84rem] max-w-[12.5rem] sm:max-w-xs cursor-pointer ${
+									isExpanded ? "" : "truncate"
+								}`}
+								onClick={toggleExpand}>
+								{comment.comment}
+							</p>
 							<Moment
 								fromNow
 								className="text-[0.71rem] text-gray-400">
@@ -127,18 +151,19 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 							</Moment>
 						</div>
 						<div className="flex items-center pt-1 text-gray-500 gap-6">
-							<div className="flex items-center">
+							<div
+								className="flex items-center cursor-pointer"
+								onClick={likePost}
+								{...longPressEvent}>
 								{isLiked ? (
 									<HiHeart
 										size={33}
-										className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 text-red-600 rounded-full transition-all duration-150"
-										onClick={likePost}
+										className="hover:bg-red-100 hover:text-red-400 p-2 text-red-600 rounded-full transition-all duration-150"
 									/>
 								) : (
 									<HiOutlineHeart
 										size={33}
-										className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150"
-										onClick={likePost}
+										className="hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150"
 									/>
 								)}
 								{likes.length > 0 && (
@@ -191,6 +216,10 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 					</div>
 				</Modal>
 			)}
+			<ComLikeModal
+				isVisible={isModalVisible}
+				onClose={hideModal}
+			/>
 		</div>
 	);
 };

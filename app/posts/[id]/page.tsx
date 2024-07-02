@@ -1,7 +1,7 @@
 import { app } from "@/app/firebase";
 import Post from "@/components/Post";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import React from "react";
+import React, { useEffect } from "react";
 import Back from "./Back";
 import Comments from "@/components/Comments";
 

@@ -6,38 +6,36 @@ import Icons from "./Icons";
 
 const Post = ({ post, id }: any) => {
 	return (
-		<div className="border-b p-3 hover:bg-gray-50">
+		<div className="border-b p-3 hover:bg-gray-50 overflow-x-hidden">
 			<div className="flex items-start justify-between">
 				<div>
 					<Image
 						src={post?.profileImg}
 						alt="profile"
 						width={40}
-						height={1}
+						height={40}
 						className="rounded-full p-[1px] border-gray-300 border"
 					/>
 				</div>
-				<div className=" flex-1 pl-3">
-					<div className="flex items-center gap-1 truncate max-w-[15.8rem] sm:max-w-full">
-						<p className="text-sm font-bold truncate">{post.name}</p>
+				<div className="flex-1 pl-3 truncate">
+					<div className="flex items-center gap-1 truncate">
+						<p className="text-sm font-bold">{post.name}</p>
 						<p className="text-xs text-gray-400 truncate">@{post.username}</p>
 					</div>
 					<Link href={`/posts/${id}`}>
 						<p className="text-sm pt-2">{post.text}</p>
 					</Link>
-					{post.image ? (
+					{post.image && (
 						<Link href={`/posts/${id}`}>
 							<Image
 								src={post.image}
 								alt={post.name}
-								width={1}
-								height={1}
+								width={500}
+								height={500}
 								className="w-full rounded-2xl mt-3"
-								unoptimized
+								priority
 							/>
 						</Link>
-					) : (
-						""
 					)}
 					<Icons
 						id={id}

@@ -20,6 +20,8 @@ import Modal from "react-modal";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "@/app/atom/modalAtom";
 import { subscribe } from "diagnostics_channel";
+import useLongPress from "@/app/hooks/UseLongPress";
+import LikeModal from "./LikeModal";
 
 const Icon = ({ id, uid }: any) => {
 	const { data: session } = useSession();
@@ -30,6 +32,12 @@ const Icon = ({ id, uid }: any) => {
 	const [open, setOpen] = useRecoilState(modalState);
 	const [postId, setPostId] = useRecoilState(postIdState);
 	const [comments, setComments] = useState<DocumentData[]>([]);
+	const [isModalVisible, setModalVisible] = useState(false);
+
+	const showModal = () => setModalVisible(true);
+	const hideModal = () => setModalVisible(false);
+
+	const longPressEvent = useLongPress(showModal, 500, id);
 
 	const likePost = async () => {
 		if (session && session.user && session.user.uid) {
@@ -37,7 +45,9 @@ const Icon = ({ id, uid }: any) => {
 				await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
 			} else {
 				await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+					userImg: session.user.image,
 					username: session.user.username,
+					name: session.user.name,
 					timestamp: serverTimestamp(),
 				});
 			}
@@ -100,18 +110,19 @@ const Icon = ({ id, uid }: any) => {
 					/>
 					{comments.length > 0 && <p className="text-sm">{comments.length}</p>}
 				</div>
-				<div className="flex items-center">
+				<div
+					className="flex items-center cursor-pointer"
+					onClick={likePost}
+					{...longPressEvent}>
 					{isLiked ? (
 						<HiHeart
 							size={33}
 							className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 text-red-600 rounded-full transition-all duration-150"
-							onClick={likePost}
 						/>
 					) : (
 						<HiOutlineHeart
 							size={33}
 							className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150"
-							onClick={likePost}
 						/>
 					)}
 					{likes.length > 0 && (
@@ -157,6 +168,11 @@ const Icon = ({ id, uid }: any) => {
 					</div>
 				</Modal>
 			)}
+			<LikeModal
+				isVisible={isModalVisible}
+				onClose={hideModal}
+				className="z-20"
+			/>
 		</div>
 	);
 };

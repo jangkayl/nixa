@@ -17,7 +17,7 @@ import { app } from "@/app/firebase";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-interface Post {
+interface PostProps {
 	profileImg: string;
 	username: string;
 	name: string;
@@ -27,7 +27,7 @@ interface Post {
 const CommentModal = () => {
 	const [open, setOpen] = useRecoilState(modalState);
 	const [postId, setPostId] = useRecoilState(postIdState);
-	const [post, setPost] = useState<Post | null>(null);
+	const [post, setPost] = useState<PostProps | null>(null);
 	const db = getFirestore(app);
 	const { data: session } = useSession();
 	const [input, setInput] = useState("");
@@ -37,7 +37,7 @@ const CommentModal = () => {
 		if (postId !== "") {
 			const postRef = doc(db, "posts", postId);
 			const unsubscribe = onSnapshot(postRef, (snapshot) => {
-				const postData = snapshot.data() as Post;
+				const postData = snapshot.data() as PostProps;
 				if (snapshot.exists()) {
 					setPost(postData);
 				} else {
