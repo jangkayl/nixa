@@ -25,7 +25,6 @@ const News = () => {
 		fetch("https://saurav.tech/NewsAPI/top-headlines/category/health/in.json")
 			.then((res) => res.json())
 			.then((data) => {
-				console.log("Fetched data:", data);
 				if (data.articles) setNews(data.articles);
 				else setNews([]);
 			})
