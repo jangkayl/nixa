@@ -85,6 +85,8 @@ const Input = () => {
 		setImageUrl(null);
 		setText("");
 		setUploadLoading(false);
+
+		window.location.reload();
 	};
 
 	if (!session) return null;

@@ -22,11 +22,11 @@ const Post = ({ post, id }: any) => {
 						<p className="text-sm font-bold truncate">{post.name}</p>
 						<p className="text-xs text-gray-400 truncate">@{post.username}</p>
 					</div>
-					<Link href={`/post/${id}`}>
+					<Link href={`/posts/${id}`}>
 						<p className="text-sm pt-2">{post.text}</p>
 					</Link>
 					{post.image ? (
-						<Link href={`/post/${id}`}>
+						<Link href={`/posts/${id}`}>
 							<Image
 								src={post.image}
 								alt={post.name}
@@ -39,7 +39,10 @@ const Post = ({ post, id }: any) => {
 					) : (
 						""
 					)}
-					<Icons />
+					<Icons
+						id={id}
+						uid={post.uid}
+					/>
 				</div>
 				<BsThreeDots
 					size={17}

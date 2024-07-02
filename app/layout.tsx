@@ -4,6 +4,7 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import News from "@/components/News";
 import SessionWrapper from "@/components/SessionWrapper";
+import CommentModal from "@/components/CommentModal";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -26,7 +27,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={poppins.className}>
 				<SessionWrapper>
-					<div className="flex justify-between max-w-6xl mx-auto mb-5">
+					<div className="flex justify-between max-w-6xl mx-auto">
 						<div className="border-r h-screen px-3 hidden sm:block sticky top-0">
 							<Sidebar />
 						</div>
@@ -40,6 +41,7 @@ export default function RootLayout({
 							<News />
 						</div>
 					</div>
+					<CommentModal />
 				</SessionWrapper>
 			</body>
 		</html>
