@@ -84,12 +84,12 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 							src={comment?.userImg}
 							alt="profile"
 							width={35}
-							height={1}
+							height={35}
 							className="rounded-full p-[1px] border-gray-300 border"
 						/>
 					</div>
-					<div className=" flex-1 pl-3">
-						<div className="flex items-center gap-1">
+					<div className="flex-1 pl-3">
+						<div className="flex items-center gap-1 truncate max-w-[15.8rem] sm:max-w-full">
 							<p className="text-sm font-bold truncate">{comment.name}</p>
 							<p className="text-xs text-gray-400 truncate">
 								@{comment.username}
