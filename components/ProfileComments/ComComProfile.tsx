@@ -30,6 +30,8 @@ const ComComProfile = ({ id, reply }: any) => {
 		);
 	}, [db, id, setPostId]);
 
+	console.log(postId);
+
 	return (
 		<div>
 			{comments.map((comment: any) => {

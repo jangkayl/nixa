@@ -38,6 +38,7 @@ interface LikeProps {
 	id: string;
 	timestamp: any;
 	username: string;
+	uid: string;
 	userImg: string;
 	name: string;
 }
@@ -58,6 +59,7 @@ const ComLikeModal = ({ isVisible, onClose }: ComLikeModalProps) => {
 		if (!likeComment || !postId) return;
 
 		const commentDocRef = doc(db, "posts", postId, "comments", likeComment);
+
 		const likesCollectionRef = collection(commentDocRef, "likes");
 
 		const unsubscribe = onSnapshot(likesCollectionRef, (querySnapshot) => {

@@ -20,8 +20,8 @@ import { IoClose } from "react-icons/io5";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { likeCommentIdState, modalState } from "@/app/atom/modalAtom";
-import useComLikeLongPress from "@/app/hooks/ComLikeLongPress";
 import ComLikeModal from "./ComLikeModal";
+import useComLikeLongPress from "@/app/hooks/ComLikeLongPress";
 
 const Comment = ({ commentId, comment, originalId }: any) => {
 	const { data: session } = useSession();
@@ -71,6 +71,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 						username: session.user.username,
 						name: session.user.name,
 						timestamp: serverTimestamp(),
+						uid: session.user.uid,
 					}
 				);
 			}

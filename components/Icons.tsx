@@ -19,7 +19,6 @@ import { app } from "@/app/firebase";
 import Modal from "react-modal";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "@/app/atom/modalAtom";
-import { subscribe } from "diagnostics_channel";
 import useLongPress from "@/app/hooks/UseLongPress";
 import LikeModal from "./LikeModal";
 
@@ -49,6 +48,7 @@ const Icon = ({ id, uid }: any) => {
 					username: session.user.username,
 					name: session.user.name,
 					timestamp: serverTimestamp(),
+					uid: session.user.uid,
 				});
 			}
 		} else {
