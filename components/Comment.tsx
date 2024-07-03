@@ -104,7 +104,6 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 		deleteDoc(doc(db, "posts", originalId, "comments", commentId))
 			.then(() => {
 				console.log("Nix deleted successfully");
-				window.location.reload();
 			})
 			.catch((error) => {
 				console.log(error);

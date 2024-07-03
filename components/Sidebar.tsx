@@ -28,12 +28,21 @@ const Sidebar = () => {
 					<HiMiniHome size={30} />
 					<h1 className="font-bold text-md hidden lg:block">Home</h1>
 				</Link>
-				<Link
-					href={`/user/${session?.user?.uid}`}
-					className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200  lg:w-full sm:w-fit md:w-fit">
-					<HiUser size={30} />
-					<h1 className="font-bold text-md hidden lg:block">Profile</h1>
-				</Link>
+				{session ? (
+					<Link
+						href={`/user/${session?.user?.uid}`}
+						className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200  lg:w-full sm:w-fit md:w-fit">
+						<HiUser size={30} />
+						<h1 className="font-bold text-md hidden lg:block">Profile</h1>
+					</Link>
+				) : (
+					<button
+						onClick={() => signIn()}
+						className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200  lg:w-full sm:w-fit md:w-fit">
+						<HiUser size={30} />
+						<h1 className="font-bold text-md hidden lg:block">Profile</h1>
+					</button>
+				)}
 				{session ? (
 					<button
 						className="font-medium text-md rounded-full h-9 w-48 text-white bg-blue-400 hover:bg-blue-500 transition-all duration-200 lg:block hidden shadow-md"
