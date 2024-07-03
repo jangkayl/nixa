@@ -7,9 +7,7 @@ import Icons from "./Icons";
 const Post = ({ post, id }: any) => {
 	return (
 		<div className="border-b p-3 hover:bg-gray-50 overflow-x-hidden">
-			<div className="flex items-start justify-between relative">
-				<span className="w-0.5 h-[35%] absolute left-[1.2rem] top-15 bg-gray-300 bottom-3" />
-				<span className="w-1 h-[5%] absolute left-[1.15rem] top-15 bg-gray-300 bottom-1 rounded-full" />
+			<div className="flex items-start justify-between">
 				<Link href={`/user/${post.uid}`}>
 					<Image
 						src={post?.profileImg}

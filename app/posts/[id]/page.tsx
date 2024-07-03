@@ -30,6 +30,7 @@ const PostImage = async ({ params }: any) => {
 				<Post
 					post={data}
 					id={data.id}
+					className="relative"
 				/>
 				<Comments id={params.id} />
 			</div>
