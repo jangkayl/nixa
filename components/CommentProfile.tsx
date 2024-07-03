@@ -17,28 +17,32 @@ const CommentProfile = ({ username, comments }: any) => {
 	if (!comments) return null;
 	return (
 		<div>
-			{filteredComments.map((com: any) => (
-				<div key={com.id}>
-					{com.comments.map((reply: any) => (
-						<div key={reply.id}>
-							{reply.username === username && (
-								<div>
+			{filteredComments.map((com: any) => {
+				let countPost: any[] = [];
+				return (
+					<div key={com.id}>
+						{com.comments.map((reply: any) => (
+							<div key={reply.id}>
+								{reply.username === username && !countPost.includes(com.id) && (
 									<div>
-										<ComProfile
-											post={com}
-											id={com.id}
-										/>
-										<ComComProfile
-											id={com.id}
-											reply={reply.username}
-										/>
+										<div>
+											<ComProfile
+												post={com}
+												id={com.id}
+											/>
+											<ComComProfile
+												id={com.id}
+												reply={reply.username}
+											/>
+											<div className="hidden">{countPost.push(com.id)}</div>
+										</div>
 									</div>
-								</div>
-							)}
-						</div>
-					))}
-				</div>
-			))}
+								)}
+							</div>
+						))}
+					</div>
+				);
+			})}
 		</div>
 	);
 };
