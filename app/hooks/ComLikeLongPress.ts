@@ -12,7 +12,6 @@ const useComLikeLongPress = (callback = () => {}, ms = 300, id: any) => {
 			timerId = setTimeout(() => {
 				callback();
 				setLikeComment(id);
-				console.log("long pressing");
 			}, ms);
 		} else {
 			clearTimeout(timerId);

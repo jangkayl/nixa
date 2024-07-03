@@ -30,8 +30,6 @@ const Comments = ({ id }: any) => {
 		);
 	}, [db, id, setPostId]);
 
-	console.log(postId);
-
 	return (
 		<div>
 			{comments.map((comment: any) => (
