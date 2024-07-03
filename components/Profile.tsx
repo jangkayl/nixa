@@ -1,11 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import ButtonsProfile from "./ButtonsProfile";
+import BackProfile from "./BackProfile";
 
 const Profile = ({ posts }: any) => {
 	const user = posts[0];
 	return (
 		<div>
+			<BackProfile />
 			<div className="w-full h-[14rem]">
 				<div className="w-full bg-slate-300 h-full max-h-[8rem] relative">
 					{user.profileImg && (
