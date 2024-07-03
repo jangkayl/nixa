@@ -2,7 +2,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
-import logo from "@/public/logo.png";
 import profile from "@/public/profile.png";
 import Link from "next/link";
 
@@ -18,7 +17,7 @@ const MobileSidebar = () => {
 		<>
 			{!session && (
 				<Image
-					src={logo || ""}
+					src={profile || ""}
 					alt="user-profile"
 					width={30}
 					height={30}
@@ -42,7 +41,7 @@ const MobileSidebar = () => {
 					<div
 						className={`${
 							menu ? "block" : "hidden"
-						}  z-50 my-4 list-none bg-white divide-y divide-gray-100 rounded-lg shadow fixed top-7 right-3 transition-all duration-150 hover:scale-105 font-semibold`}>
+						}  z-50 my-4 list-none bg-white divide-y divide-gray-100 rounded-lg shadow fixed top-7 right-3 transition-all duration-150 hover:scale-105 font-semibold sm:hidden`}>
 						<div className="px-4 py-3">
 							<span className="block text-sm font-bold">
 								{session.user.name}
