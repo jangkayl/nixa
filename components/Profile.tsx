@@ -3,7 +3,7 @@ import React from "react";
 import ButtonsProfile from "./ButtonsProfile";
 import BackProfile from "./BackProfile";
 
-const Profile = ({ posts }: any) => {
+const Profile = ({ posts, comments }: any) => {
 	const user = posts[0];
 	return (
 		<div>
@@ -28,7 +28,10 @@ const Profile = ({ posts }: any) => {
 					)}
 				</div>
 			</div>
-			<ButtonsProfile posts={posts} />
+			<ButtonsProfile
+				posts={posts}
+				comments={comments}
+			/>
 		</div>
 	);
 };

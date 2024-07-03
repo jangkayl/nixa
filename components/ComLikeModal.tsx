@@ -61,13 +61,10 @@ const ComLikeModal = ({ isVisible, onClose }: ComLikeModalProps) => {
 		const likesCollectionRef = collection(commentDocRef, "likes");
 
 		const unsubscribe = onSnapshot(likesCollectionRef, (querySnapshot) => {
-			const updatedLikes: LikeProps[] = [];
-			querySnapshot.forEach((doc) =>
-				updatedLikes.push({
-					id: doc.id,
-					...(doc.data() as Omit<LikeProps, "id">),
-				})
-			);
+			const updatedLikes = querySnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...(doc.data() as Omit<LikeProps, "id">),
+			}));
 			setLikes(updatedLikes);
 		});
 

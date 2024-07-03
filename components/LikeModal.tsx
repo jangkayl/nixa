@@ -17,8 +17,8 @@ import { FaRegFaceSadCry } from "react-icons/fa6";
 
 moment.updateLocale("en", {
 	relativeTime: {
-		future: "in %s",
-		past: "%s ago",
+		future: "in %sec",
+		past: "%sec ago",
 		s: "s", // seconds
 		ss: "%ss", // seconds
 		m: "1m", // a minute

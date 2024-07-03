@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import ProfilePost from "./ProfilePost";
+import CommentProfile from "./CommentProfile";
 
-const ButtonsProfile = ({ posts }: any) => {
+const ButtonsProfile = ({ posts, comments }: any) => {
 	const [selected, setSelected] = useState("Posts");
 
 	const handleSelect = (buttonName: string) => {
@@ -43,7 +44,13 @@ const ButtonsProfile = ({ posts }: any) => {
 						}`}></span>
 				</button>
 			</div>
-			<ProfilePost posts={posts} />
+			{selected === "Posts" && <ProfilePost posts={posts} />}
+			{selected === "Comments" && (
+				<CommentProfile
+					username={posts[0].username}
+					comments={comments}
+				/>
+			)}
 		</div>
 	);
 };
