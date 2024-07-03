@@ -19,7 +19,11 @@ import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
-import { likeCommentIdState, modalState } from "@/app/atom/modalAtom";
+import {
+	likeCommentIdState,
+	modalState,
+	postIdState,
+} from "@/app/atom/modalAtom";
 import ComLikeModal from "./ComLikeModal";
 import useComLikeLongPress from "@/app/hooks/ComLikeLongPress";
 
@@ -33,6 +37,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 	const [likeComment, setLikeComment] = useRecoilState(likeCommentIdState);
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
+	const [postId, setPostId] = useRecoilState(postIdState);
 
 	const showModal = () => setModalVisible(true);
 	const hideModal = () => setModalVisible(false);
@@ -118,7 +123,9 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 
 	return (
 		<div>
-			<div className="border-b p-3 hover:bg-gray-50">
+			<div
+				className="border-b p-3 hover:bg-gray-50"
+				onMouseDown={() => setPostId(originalId)}>
 				<div className="flex items-start justify-between ml-4">
 					<div>
 						<Image
