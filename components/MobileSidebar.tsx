@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import logo from "@/public/logo.png";
 import profile from "@/public/profile.png";
+import Link from "next/link";
 
 const MobileSidebar = () => {
 	const { data: session } = useSession();
@@ -52,11 +53,11 @@ const MobileSidebar = () => {
 						</div>
 						<ul className="py-2">
 							<li>
-								<a
-									href="#"
+								<Link
+									href={`/user/${session?.user?.uid}`}
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">
 									Profile
-								</a>
+								</Link>
 							</li>
 							<li>
 								<p

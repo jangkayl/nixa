@@ -5,15 +5,23 @@ import React, { useEffect } from "react";
 import Back from "./Back";
 import Comments from "@/components/Comments";
 
-interface PostProps {
-	id: string;
-}
-
 const PostImage = async ({ params }: any) => {
 	const db = getFirestore(app);
-	let data: PostProps = { id: "" };
 	const querySnapshot = await getDoc(doc(db, "posts", params.id));
-	data = { ...querySnapshot.data(), id: querySnapshot.id };
+
+	if (!querySnapshot.exists()) {
+		return (
+			<div>
+				<Back />
+				<p className="font-semibold p-3 text-center">{`"No post found"`}</p>
+			</div>
+		);
+	}
+
+	let data = {
+		id: querySnapshot.id,
+		...querySnapshot.data(),
+	};
 
 	return (
 		<div>

@@ -7,6 +7,7 @@ import { HiMiniHome } from "react-icons/hi2";
 import { signIn, signOut, useSession } from "next-auth/react";
 import profile from "@/public/profile.png";
 import { BsThreeDots } from "react-icons/bs";
+import { HiUser } from "react-icons/hi2";
 
 const Sidebar = () => {
 	const { data: session } = useSession();
@@ -23,9 +24,15 @@ const Sidebar = () => {
 				</Link>
 				<Link
 					href="/"
-					className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200 w-fit">
+					className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200 sm:w-fit md:w-fit lg:w-full">
 					<HiMiniHome size={30} />
 					<h1 className="font-bold text-md hidden lg:block">Home</h1>
+				</Link>
+				<Link
+					href={`/user/${session?.user?.uid}`}
+					className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200  lg:w-full sm:w-fit md:w-fit">
+					<HiUser size={30} />
+					<h1 className="font-bold text-md hidden lg:block">Profile</h1>
 				</Link>
 				{session ? (
 					<button
