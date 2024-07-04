@@ -130,7 +130,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 				className="border-b p-3 hover:bg-gray-50 dark:hover:bg-zinc-900"
 				onPointerDown={() => setPostId(originalId)}>
 				<div className="flex items-start justify-between ml-4">
-					<div>
+					<Link href={`/user/${comment.uid}`}>
 						<Image
 							src={comment?.userImg}
 							alt="profile"
@@ -138,7 +138,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 							height={35}
 							className="rounded-full p-[1px] border-gray-300 border"
 						/>
-					</div>
+					</Link>
 					<div className="flex-1 pl-3 overflow-x-hidden">
 						<Link
 							href={`/user/${comment.uid}`}
