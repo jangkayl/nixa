@@ -125,7 +125,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 		<div>
 			<div
 				className="border-b p-3 hover:bg-gray-50"
-				onMouseDown={() => setPostId(originalId)}>
+				onPointerDown={() => setPostId(originalId)}>
 				<div className="flex items-start justify-between ml-4">
 					<div>
 						<Image
