@@ -51,7 +51,7 @@ const Sidebar = () => {
 				) : (
 					<button
 						onClick={() => signIn()}
-						className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200  lg:w-full sm:w-fit md:w-fit">
+						className="flex gap-2 items-center hover:bg-gray-100 rounded-full p-2 transition-all duration-200  lg:w-full sm:w-fit md:w-fit dark:hover:bg-gray-800">
 						<HiUser size={30} />
 						<h1 className="font-bold text-md hidden lg:block">Profile</h1>
 					</button>

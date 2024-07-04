@@ -42,7 +42,6 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 
 	const showModal = () => setModalVisible(true);
 	const hideModal = () => setModalVisible(false);
-
 	const id = commentId;
 	const longPressEvent = useComLikeLongPress(showModal, 500, id);
 

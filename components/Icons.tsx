@@ -35,7 +35,6 @@ const Icon = ({ id, uid }: any) => {
 
 	const showModal = () => setModalVisible(true);
 	const hideModal = () => setModalVisible(false);
-
 	const longPressEvent = useLongPress(showModal, 500, id);
 
 	const likePost = async () => {

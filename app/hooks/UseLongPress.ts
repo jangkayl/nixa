@@ -22,7 +22,10 @@ const useLongPress = (callback = () => {}, ms = 300, id: any) => {
 		};
 	}, [callback, id, ms, setPostId, startLongPress]);
 
-	const start = useCallback(() => setStartLongPress(true), []);
+	const start = useCallback(() => {
+		setStartLongPress(true);
+		setPostId(id);
+	}, [id, setPostId]);
 	const stop = useCallback(() => setStartLongPress(false), []);
 
 	return {

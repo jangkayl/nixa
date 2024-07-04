@@ -22,7 +22,10 @@ const useComLikeLongPress = (callback = () => {}, ms = 300, id: any) => {
 		};
 	}, [callback, id, ms, setLikeComment, startLongPress]);
 
-	const start = useCallback(() => setStartLongPress(true), []);
+	const start = useCallback(() => {
+		setStartLongPress(true);
+		setLikeComment(id);
+	}, [id, setLikeComment]);
 	const stop = useCallback(() => setStartLongPress(false), []);
 
 	return {
