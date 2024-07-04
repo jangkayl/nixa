@@ -73,7 +73,9 @@ const Sidebar = () => {
 			{session && (
 				<div className="flex flex-col items-center">
 					<ThemeSwitch />
-					<div className="flex justify-between items-center gap-2 p-2 hover:bg-gray-100 transition-all duration-200 rounded-full dark:hover:bg-gray-800">
+					<Link
+						href={`/user/${session?.user?.uid}`}
+						className="flex justify-between items-center gap-2 p-2 hover:bg-gray-100 transition-all duration-200 rounded-full dark:hover:bg-gray-800 cursor-pointer">
 						<Image
 							src={session?.user?.image || profile}
 							alt="user-image"
@@ -87,7 +89,7 @@ const Sidebar = () => {
 								@{session?.user?.username}
 							</p>
 						</div>
-					</div>
+					</Link>
 				</div>
 			)}
 		</div>

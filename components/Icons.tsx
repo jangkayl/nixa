@@ -93,7 +93,9 @@ const Icon = ({ id, uid }: any) => {
 
 	return (
 		<div>
-			<div className="flex gap-7 text-gray-500 items-center pt-2">
+			<div
+				className="flex gap-7 text-gray-500 items-center pt-2"
+				onPointerOver={() => setPostId(id)}>
 				<div className="flex items-center">
 					<FaRegCommentDots
 						size={32}
