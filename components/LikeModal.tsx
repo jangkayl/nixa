@@ -76,7 +76,8 @@ const LikeModal = ({ isVisible, onClose }: any) => {
 			isOpen={isVisible}
 			onRequestClose={onClose}
 			ariaHideApp={false}
-			className="bg-white p-4 rounded-xl border-gray-300 border fixed top-32 left-[50%] translate-x-[-50%] outline-none max-w-sm w-full h-auto max-h-[20rem]">
+			className="bg-white p-4 rounded-xl border-gray-300 border fixed top-32 left-[50%] translate-x-[-50%] outline-none max-w-sm w-full h-auto max-h-[20rem] dark:bg-zinc-900"
+			overlayClassName="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
 			<IoClose
 				size={20}
 				onClick={onClose}

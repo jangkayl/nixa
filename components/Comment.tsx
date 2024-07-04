@@ -124,7 +124,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 	return (
 		<div>
 			<div
-				className="border-b p-3 hover:bg-gray-50"
+				className="border-b p-3 hover:bg-gray-50 dark:hover:bg-zinc-900"
 				onPointerDown={() => setPostId(originalId)}>
 				<div className="flex items-start justify-between ml-4">
 					<div>
@@ -165,12 +165,12 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 								{isLiked ? (
 									<HiHeart
 										size={33}
-										className="hover:bg-red-100 hover:text-red-400 p-2 text-red-600 rounded-full transition-all duration-150"
+										className="hover:bg-red-100 hover:text-red-400 p-2 text-red-600 rounded-full transition-all duration-150 dark:hover:bg-red-950"
 									/>
 								) : (
 									<HiOutlineHeart
 										size={33}
-										className="hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150"
+										className="hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150 dark:hover:bg-red-950"
 									/>
 								)}
 								{likes.length > 0 && (
@@ -182,7 +182,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 							{session?.user.uid === comment.uid && (
 								<HiOutlineTrash
 									size={33}
-									className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150"
+									className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150 dark:hover:bg-red-950"
 									onClick={deleteModal}
 								/>
 							)}

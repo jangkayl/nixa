@@ -74,7 +74,8 @@ const CommentModal = () => {
 					isOpen={open}
 					ariaHideApp={false}
 					onRequestClose={() => setOpen(false)}
-					className="max-w-lg w-[90%] absolute top-24 left-[50%] bg-white translate-x-[-50%] border px-5 py-3 outline-none rounded-lg shadow-xl border-gray-300">
+					className="max-w-lg w-[90%] absolute top-24 left-[50%] bg-white translate-x-[-50%] border px-5 py-3 outline-none rounded-lg shadow-xl border-gray-300 dark:bg-zinc-900"
+					overlayClassName="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
 					<div className="w-[99%] border-b py-3">
 						<IoClose
 							size={20}
@@ -94,7 +95,9 @@ const CommentModal = () => {
 										height={1}
 										className="rounded-full"
 									/>
-									<p className="font-bold truncate">{post?.name}</p>
+									<p className="font-bold truncate dark:text-white">
+										{post?.name}
+									</p>
 									<p className="text-gray-500 truncate">@{post?.username}</p>
 								</div>
 								<p className="ml-12 mt-11 absolute text-[0.85rem] text-gray-500">

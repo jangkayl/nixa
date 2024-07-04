@@ -41,7 +41,7 @@ const MobileSidebar = () => {
 					<div
 						className={`${
 							menu ? "block" : "hidden"
-						}  z-50 my-4 list-none bg-white divide-y divide-gray-100 rounded-lg shadow fixed top-7 right-3 transition-all duration-150 hover:scale-105 font-semibold sm:hidden`}>
+						}  z-50 my-4 list-none bg-white divide-y divide-gray-100 rounded-lg shadow fixed top-7 right-3 transition-all duration-150 hover:scale-105 font-semibold sm:hidden dark:bg-gray-800`}>
 						<div className="px-4 py-3">
 							<span className="block text-sm font-bold">
 								{session.user.name}
@@ -54,13 +54,13 @@ const MobileSidebar = () => {
 							<li>
 								<Link
 									href={`/user/${session?.user?.uid}`}
-									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">
+									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
 									Profile
 								</Link>
 							</li>
 							<li>
 								<p
-									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer dark:text-gray-400 dark:hover:bg-gray-700"
 									onClick={() => signOut()}>
 									Sign out
 								</p>

@@ -129,7 +129,7 @@ const Input = () => {
 				<div className="flex justify-between">
 					<HiOutlinePhotograph
 						size={40}
-						className="p-2 rounded-full hover:bg-blue-50 my-2 transition-all duration-150 cursor-pointer text-blue-400"
+						className="p-2 rounded-full hover:bg-blue-50 my-2 transition-all duration-150 cursor-pointer text-blue-400 dark:hover:bg-gray-800"
 						onClick={() => imageRef?.current?.click()}
 					/>
 					<input
