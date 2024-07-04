@@ -65,7 +65,7 @@ export default function RootLayout({
 								<input
 									type="text"
 									placeholder="Search"
-									className="w-full py-2 mb-3 px-3 rounded-full bg-gray-100 shadow-sm text-sm border sticky top-2"
+									className="w-full py-2 mb-3 px-3 rounded-full bg-gray-100 shadow-sm text-sm border sticky top-2 dark:text-inherit dark:bg-zinc-800"
 								/>
 								<News />
 							</div>

@@ -26,6 +26,7 @@ import {
 } from "@/app/atom/modalAtom";
 import ComLikeModal from "./ComLikeModal";
 import useComLikeLongPress from "@/app/hooks/ComLikeLongPress";
+import Link from "next/link";
 
 const Comment = ({ commentId, comment, originalId }: any) => {
 	const { data: session } = useSession();
@@ -44,6 +45,8 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 
 	const id = commentId;
 	const longPressEvent = useComLikeLongPress(showModal, 500, id);
+
+	console.log(comment);
 
 	const likePost = async () => {
 		if (session && session.user && session.user.uid) {
@@ -137,12 +140,14 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 						/>
 					</div>
 					<div className="flex-1 pl-3 overflow-x-hidden">
-						<div className="flex items-center gap-1 truncate">
+						<Link
+							href={`/user/${comment.uid}`}
+							className="flex items-center gap-1 truncate">
 							<p className="text-sm font-bold truncate">{comment.name}</p>
 							<p className="text-xs text-gray-400 truncate">
 								@{comment.username}
 							</p>
-						</div>
+						</Link>
 						<div className="flex items-center pt-2 gap-2 w-auto ">
 							<p
 								className={`text-[0.84rem] max-w-[12.5rem] sm:max-w-xs cursor-pointer ${
@@ -208,8 +213,13 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 						className="absolute top-2 right-2 hover:text-black cursor-pointer p-1 hover:bg-gray-200 rounded-xl dark:text-white dark:hover:bg-gray-800"
 						onClick={(e) => setModal(false)}
 					/>
-					<AiOutlineExclamationCircle size={70} className="dark:text-gray-300"/>
-					<p className="dark:text-gray-300">Are you sure you want to delete this nix?</p>
+					<AiOutlineExclamationCircle
+						size={70}
+						className="dark:text-gray-300"
+					/>
+					<p className="dark:text-gray-300">
+						Are you sure you want to delete this nix?
+					</p>
 					<div className="space-x-[1rem] text-sm">
 						<button
 							className="px-5 py-2 bg-red-500 rounded-lg text-white hover:scale-105 transition-all duration-150"

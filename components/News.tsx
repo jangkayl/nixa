@@ -35,13 +35,13 @@ const News = () => {
 	}, []);
 
 	return (
-		<div className="px-3 py-2 bg-gray-100 rounded-lg text-gray-700">
+		<div className="px-3 py-2 bg-gray-100 rounded-lg text-gray-700 dark:text-inherit dark:bg-zinc-800">
 			<h1 className="font-bold text-lg pb-2">Whats happening</h1>
 			{news.slice(0, articleNum).map((article, index) => (
 				<a
 					key={index}
 					href={article.url}
-					className="py-2 flex items-center space-x-2 hover:bg-gray-200 transition-all duration-200">
+					className="py-2 flex items-center space-x-2 hover:bg-gray-200 transition-all duration-200 dark:hover:bg-zinc-900">
 					<div>
 						<h1 className="text-sm font-bold">{article.title}</h1>
 						<span className="text-xs font-medium text-gray-500">
