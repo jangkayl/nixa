@@ -12,7 +12,6 @@ import {
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { BsThreeDots } from "react-icons/bs";
 import { HiHeart, HiOutlineHeart, HiOutlineTrash } from "react-icons/hi";
 import Moment from "react-moment";
 import Modal from "react-modal";
@@ -27,6 +26,7 @@ import {
 import ComLikeModal from "./ComLikeModal";
 import useComLikeLongPress from "@/app/hooks/ComLikeLongPress";
 import Link from "next/link";
+import EditComment from "./EditComment";
 
 const Comment = ({ commentId, comment, originalId }: any) => {
 	const { data: session } = useSession();
@@ -45,8 +45,6 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 
 	const id = commentId;
 	const longPressEvent = useComLikeLongPress(showModal, 500, id);
-
-	console.log(comment);
 
 	const likePost = async () => {
 		if (session && session.user && session.user.uid) {
@@ -193,9 +191,10 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 							)}
 						</div>
 					</div>
-					<BsThreeDots
-						size={17}
-						className="cursor-pointer"
+					<EditComment
+						commentId={commentId}
+						comment={comment}
+						postId={postId}
 					/>
 				</div>
 			</div>

@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@/public/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { HiMiniHome } from "react-icons/hi2";
 import { signIn, signOut, useSession } from "next-auth/react";
 import profile from "@/public/profile.png";
-import { BsThreeDots } from "react-icons/bs";
 import { HiUser } from "react-icons/hi2";
 import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
 import darkX from "@/public/dark-x.png";
@@ -88,10 +87,6 @@ const Sidebar = () => {
 								@{session?.user?.username}
 							</p>
 						</div>
-						<BsThreeDots
-							size={15}
-							className="ml-2 cursor-pointer hidden lg:block"
-						/>
 					</div>
 				</div>
 			)}

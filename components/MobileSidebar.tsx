@@ -1,7 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import profile from "@/public/profile.png";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
@@ -14,11 +14,18 @@ const MobileSidebar = () => {
 		setMenu(!menu);
 	};
 
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
 	return (
 		<div className="flex items-center gap-2">
-			<div className="sm:hidden block">
-				<ThemeSwitch />
-			</div>
+			{mounted && (
+				<div className="sm:hidden block">
+					<ThemeSwitch />
+				</div>
+			)}
 			{!session && (
 				<Image
 					src={profile || ""}

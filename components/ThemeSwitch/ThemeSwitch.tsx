@@ -1,14 +1,10 @@
 "use client";
 import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react";
 import { FiMoon } from "react-icons/fi";
 import { IoSunnyOutline } from "react-icons/io5";
 
 const ThemeSwitch = () => {
-	const [mounted, setMounted] = useState(false);
 	const { setTheme, resolvedTheme } = useTheme();
-
-	useEffect(() => setMounted(true), []);
 
 	if (resolvedTheme === "dark")
 		return (

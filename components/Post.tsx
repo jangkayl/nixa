@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { BsThreeDots } from "react-icons/bs";
 import Icons from "./Icons";
+import EditPost from "./EditPost";
 
 const Post = ({ post, id }: any) => {
 	return (
@@ -48,10 +48,7 @@ const Post = ({ post, id }: any) => {
 						uid={post.uid}
 					/>
 				</div>
-				<BsThreeDots
-					size={17}
-					className="cursor-pointer"
-				/>
+				<EditPost post={post} />
 			</div>
 		</div>
 	);
