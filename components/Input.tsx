@@ -106,7 +106,7 @@ const Input = () => {
 					<textarea
 						rows={2}
 						placeholder="What's happening?"
-						className="tracking-wide outline-none w-full text-sm"
+						className="tracking-wide outline-none w-full text-sm dark:bg-inherit"
 						value={text}
 						onChange={(e) => setText(e.target.value)}
 					/>

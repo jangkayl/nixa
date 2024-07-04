@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import profile from "@/public/profile.png";
 import Link from "next/link";
+import ThemeSwitch from "./ThemeSwitch/ThemeSwitch";
 
 const MobileSidebar = () => {
 	const { data: session } = useSession();
@@ -14,7 +15,10 @@ const MobileSidebar = () => {
 	};
 
 	return (
-		<>
+		<div className="flex items-center gap-2">
+			<div className="sm:hidden block">
+				<ThemeSwitch />
+			</div>
 			{!session && (
 				<Image
 					src={profile || ""}
@@ -69,7 +73,7 @@ const MobileSidebar = () => {
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 };
 

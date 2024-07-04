@@ -15,7 +15,7 @@ const ThemeSwitch = () => {
 			<div
 				className="flex items-center gap-2 p-2 cursor-pointer hover:bg-gray-800 transition-all duration-200 rounded-full lg:w-full sm:w-fit md:w-fit"
 				onClick={() => setTheme("light")}>
-				<IoSunnyOutline size={30} />
+				<IoSunnyOutline className="text-xl sm:text-3xl" />
 				<p className="font-bold hidden lg:block">Light</p>
 			</div>
 		);
@@ -25,7 +25,7 @@ const ThemeSwitch = () => {
 			<div
 				className="flex items-center gap-2 p-2 cursor-pointer hover:bg-gray-100 rounded-full transition-all duration-200 lg:w-full sm:w-fit md:w-fit"
 				onClick={() => setTheme("dark")}>
-				<FiMoon size={30} />
+				<FiMoon className="text-xl sm:text-3xl" />
 				<p className="font-bold hidden lg:block">Dark</p>
 			</div>
 		);

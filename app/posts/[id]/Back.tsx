@@ -12,7 +12,7 @@ const Back = () => {
 				className="flex items-center gap-2">
 				<IoArrowBack
 					size={30}
-					className="hover:bg-gray-100 rounded-full p-1 transition-all duration-150"
+					className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full p-1 transition-all duration-150"
 				/>
 			</button>
 			<p>Back</p>
