@@ -46,13 +46,15 @@ const ButtonsProfile = ({ posts, comments }: any) => {
 					</button>
 				</div>
 			</div>
-			{selected === "Posts" && <ProfilePost posts={posts} />}
-			{selected === "Comments" && (
+			<div className={`${selected === "Posts" ? "block" : "hidden"}`}>
+				<ProfilePost posts={posts} />
+			</div>
+			<div className={`${selected === "Comments" ? "block" : "hidden"}`}>
 				<CommentProfile
 					username={posts[0].username}
 					comments={comments}
 				/>
-			)}
+			</div>
 		</div>
 	);
 };
