@@ -19,6 +19,7 @@ import { IoClose } from "react-icons/io5";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import {
+	comReplyModalState,
 	likeCommentIdState,
 	modalState,
 	postIdState,
@@ -27,6 +28,9 @@ import ComLikeModal from "./ComLikeModal";
 import useComLikeLongPress from "@/app/hooks/ComLikeLongPress";
 import Link from "next/link";
 import EditComment from "./EditComment";
+import { FaRegCommentDots } from "react-icons/fa6";
+import AddComment from "./AddComment";
+import Replies from "./Replies";
 
 const Comment = ({ commentId, comment, originalId }: any) => {
 	const { data: session } = useSession();
@@ -35,10 +39,13 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 	const [likes, setLikes] = useState<DocumentData[]>([]);
 	const [modal, setModal] = useState(false);
 	const [open, setOpen] = useRecoilState(modalState);
+	const [comReply, setComReply] = useRecoilState(comReplyModalState);
 	const [likeComment, setLikeComment] = useRecoilState(likeCommentIdState);
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
 	const [postId, setPostId] = useRecoilState(postIdState);
+	const [comId, setComId] = useState("");
+	const [replyOpen, setReplyOpen] = useState(false);
 
 	const showModal = () => setModalVisible(true);
 	const hideModal = () => setModalVisible(false);
@@ -126,7 +133,7 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 			<div
 				className="border-b p-3 hover:bg-gray-50 dark:hover:bg-zinc-900"
 				onPointerDown={() => setPostId(originalId)}>
-				<div className="flex items-start justify-between ml-4">
+				<div className="flex items-start justify-between ml-4 relative">
 					<Link href={`/user/${comment.uid}`}>
 						<Image
 							src={comment?.userImg}
@@ -160,6 +167,33 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 							</Moment>
 						</div>
 						<div className="flex items-center pt-1 text-gray-500 gap-6">
+							<div
+								className="flex items-center"
+								onClick={() => {
+									if (!session) {
+										signIn();
+									} else {
+										setPostId(id);
+										setReplyOpen(!replyOpen);
+										setComId(commentId);
+										setComReply(!comReply);
+									}
+								}}>
+								<FaRegCommentDots
+									size={32}
+									className="cursor-pointer hover:bg-sky-100 hover:text-sky-400 p-2 rounded-full transition-all duration-150 dark:hover:bg-gray-800"
+								/>
+								<AddComment
+									replyOpen={replyOpen}
+									setReplyOpen={setReplyOpen}
+									commentId={commentId}
+									comment={comment}
+									originalId={originalId}
+								/>
+								{comment.length > 0 && (
+									<p className="text-sm">{comment.length}</p>
+								)}
+							</div>
 							<div
 								className="flex items-center cursor-pointer"
 								onClick={likePost}
@@ -197,6 +231,11 @@ const Comment = ({ commentId, comment, originalId }: any) => {
 					/>
 				</div>
 			</div>
+			<Replies
+				commentId={commentId}
+				comment={comment}
+				originalId={originalId}
+			/>
 			{/* Modal */}
 			{modal && (
 				<Modal

@@ -13,3 +13,8 @@ export const likeCommentIdState = atom({
 	key: "likeCommentIdState",
 	default: "",
 });
+
+export const comReplyModalState = atom({
+	key: "comReplyModalState",
+	default: false,
+});

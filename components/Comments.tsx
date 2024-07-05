@@ -10,15 +10,11 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
-import { useRecoilState } from "recoil";
-import { postIdState } from "@/app/atom/modalAtom";
 
 const Comments = ({ id }: any) => {
-	const [postId, setPostId] = useRecoilState(postIdState);
 	const db = getFirestore(app);
 	const [comments, setComments] = useState<DocumentData>([]);
 	useEffect(() => {
-		setPostId(id);
 		onSnapshot(
 			query(
 				collection(db, "posts", id, "comments"),
@@ -28,7 +24,7 @@ const Comments = ({ id }: any) => {
 				setComments(snapshot.docs);
 			}
 		);
-	}, [db, id, setPostId]);
+	}, [db, id]);
 
 	return (
 		<div>

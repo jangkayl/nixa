@@ -1,62 +1,46 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "@/app/atom/modalAtom";
-import { useSession } from "next-auth/react";
-import Modal from "react-modal";
-import { IoClose } from "react-icons/io5";
+import { comReplyModalState } from "@/app/atom/modalAtom";
+import { app } from "@/app/firebase";
 import {
 	addDoc,
 	collection,
-	doc,
 	getFirestore,
-	onSnapshot,
 	serverTimestamp,
 } from "firebase/firestore";
-import { app } from "@/app/firebase";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import React, { useState } from "react";
+import { IoClose } from "react-icons/io5";
+import Modal from "react-modal";
 import { useRouter } from "next/navigation";
 
-interface PostProps {
-	profileImg: string;
-	username: string;
-	name: string;
-	text: string;
-}
-
-const CommentModal = () => {
-	const [open, setOpen] = useRecoilState(modalState);
-	const [postId, setPostId] = useRecoilState(postIdState);
-	const [post, setPost] = useState<PostProps | null>(null);
-	const db = getFirestore(app);
+const AddComment = ({
+	replyOpen,
+	setReplyOpen,
+	commentId,
+	comment,
+	originalId,
+}: any) => {
 	const { data: session } = useSession();
+	const db = getFirestore(app);
 	const [input, setInput] = useState("");
 	const router = useRouter();
 
-	useEffect(() => {
-		if (postId !== "") {
-			const postRef = doc(db, "posts", postId);
-			const unsubscribe = onSnapshot(postRef, (snapshot) => {
-				const postData = snapshot.data() as PostProps;
-				setPost(postData);
-			});
-			return () => unsubscribe();
-		}
-	}, [db, postId, setPostId]);
-
 	const addComment = async () => {
-		addDoc(collection(db, "posts", postId, "comments"), {
-			name: session?.user.name,
-			username: session?.user.username,
-			userImg: session?.user.image,
-			comment: input,
-			uid: session?.user.uid,
-			timestamp: serverTimestamp(),
-		})
+		addDoc(
+			collection(db, "posts", originalId, "comments", commentId, "replies"),
+			{
+				name: session?.user.name,
+				username: session?.user.username,
+				userImg: session?.user.image,
+				comment: input,
+				uid: session?.user.uid,
+				timestamp: serverTimestamp(),
+			}
+		)
 			.then(() => {
 				setInput("");
-				setOpen(false);
-				router.push(`/posts/${postId}`);
+				router.push(`/posts/${originalId}`);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -65,39 +49,40 @@ const CommentModal = () => {
 
 	return (
 		<div>
-			{open && (
+			{replyOpen && (
 				<Modal
-					isOpen={open}
+					isOpen={replyOpen}
 					ariaHideApp={false}
-					onRequestClose={() => setOpen(false)}
+					onRequestClose={() => setReplyOpen(false)}
 					className="max-w-lg w-[90%] absolute top-24 left-[50%] bg-white translate-x-[-50%] border px-5 py-3 outline-none rounded-lg shadow-xl border-gray-300 dark:bg-zinc-900"
 					overlayClassName="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
-					<div className="w-[99%] border-b py-3">
+					<div className="w-[99%] border-b py-3 flex items-center gap-3">
 						<IoClose
 							size={20}
-							onClick={() => setOpen(false)}
+							onClick={() => setReplyOpen(false)}
 							className="cursor-pointer"
 						/>
+						<p>Reply</p>
 					</div>
-					{post && (
-						<div>
-							<div className="p-2 flex flex-col gap-10">
+					{comment && (
+						<div onClick={(e) => e.stopPropagation()}>
+							<div className="p-2 flex flex-col">
 								<span className="w-0.5 h-[35%] z-[-1] absolute left-[2.9rem] top-15 bg-gray-300" />
 								<div className="flex text-sm items-center gap-2">
 									<Image
-										src={post.profileImg || ""}
+										src={session?.user?.image || ""}
 										alt="userImage"
 										width={40}
 										height={1}
 										className="rounded-full"
 									/>
 									<p className="font-bold truncate dark:text-white">
-										{post?.name}
+										{comment?.name}
 									</p>
-									<p className="text-gray-500 truncate">@{post?.username}</p>
+									<p className="text-gray-500 truncate">@{comment?.username}</p>
 								</div>
-								<p className="ml-12 mt-11 absolute text-[0.85rem] text-gray-500">
-									{post?.text}
+								<p className="pl-12 text-[0.85rem] text-gray-500">
+									{comment?.comment}
 								</p>
 								<div className="flex">
 									<div>
@@ -116,6 +101,7 @@ const CommentModal = () => {
 											className="p-2 w-full outline-none dark:bg-inherit"
 											value={input}
 											onChange={(e) => setInput(e.target.value)}
+											onClick={(e) => e.stopPropagation()}
 										/>
 									</div>
 								</div>
@@ -124,7 +110,10 @@ const CommentModal = () => {
 								<button
 									className="bg-blue-500 text-white px-5 py-2 rounded-full font-semibold disabled:bg-blue-300 disabled:cursor-not-allowed"
 									disabled={input.trim() === ""}
-									onClick={addComment}>
+									onClick={() => {
+										addComment();
+										setReplyOpen(false);
+									}}>
 									Reply
 								</button>
 							</div>
@@ -136,4 +125,4 @@ const CommentModal = () => {
 	);
 };
 
-export default CommentModal;
+export default AddComment;

@@ -29,7 +29,8 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			suppressHydrationWarning>
+			suppressHydrationWarning
+			className="scroll-smooth">
 			<head>
 				<link
 					rel="icon"
