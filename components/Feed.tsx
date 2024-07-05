@@ -13,14 +13,16 @@ const Feed = async () => {
 	const db = getFirestore(app);
 	const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
 	const querySnapshot = await getDocs(q);
-	let data: any[] = [];
+	let data: any = [];
 	querySnapshot.forEach((doc) => {
-		data.push({ id: doc.id, ...doc.data() });
+		const postData = doc.data();
+		const plainTimestamp = postData.timestamp?.toMillis();
+		data.push({ id: doc.id, ...postData, timestamp: plainTimestamp });
 	});
 
 	return (
 		<div>
-			{data.map((post) => (
+			{data.map((post: any) => (
 				<Post
 					post={post}
 					key={post.id}

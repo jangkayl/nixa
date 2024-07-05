@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useRecoilState } from "recoil";
 import { app } from "@/app/firebase";
-import { getFirestore, collection, doc, onSnapshot } from "firebase/firestore";
 import {
-	likeCommentIdState,
-	modalState,
-	postIdState,
-} from "@/app/atom/modalAtom";
+	getFirestore,
+	collection,
+	getDocs,
+	onSnapshot,
+} from "firebase/firestore";
+import { modalState, postIdState } from "@/app/atom/modalAtom";
 import Moment from "react-moment";
 import moment from "moment";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { FaRegFaceSadCry } from "react-icons/fa6";
 
-// Update locale for moment
 moment.updateLocale("en", {
 	relativeTime: {
 		future: "in %s",
@@ -38,40 +38,47 @@ interface LikeProps {
 	id: string;
 	timestamp: any;
 	username: string;
-	uid: string;
 	userImg: string;
 	name: string;
 }
 
-interface ComLikeModalProps {
-	isVisible: boolean;
-	onClose: () => void;
-}
-
-const ComLikeModal = ({ isVisible, onClose }: ComLikeModalProps) => {
+const ReplyLikeModal = ({ isVisible, onClose, replyId, commentId }: any) => {
 	const [open, setOpen] = useRecoilState(modalState);
-	const [likeComment, setLikeComment] = useRecoilState(likeCommentIdState);
 	const [postId, setPostId] = useRecoilState(postIdState);
 	const [likes, setLikes] = useState<LikeProps[]>([]);
 	const db = getFirestore(app);
 
 	useEffect(() => {
-		if (!likeComment || !postId) return;
+		const fetchData = async () => {
+			if (!postId) return;
 
-		const commentDocRef = doc(db, "posts", postId, "comments", likeComment);
+			const likesRef = collection(
+				db,
+				"posts",
+				postId,
+				"comments",
+				commentId,
+				"replies",
+				replyId,
+				"likes"
+			);
 
-		const likesCollectionRef = collection(commentDocRef, "likes");
+			const unsubscribe = onSnapshot(likesRef, (querySnapshot) => {
+				const updatedLikes: LikeProps[] = [];
+				querySnapshot.forEach((doc) => {
+					updatedLikes.push({
+						id: doc.id,
+						...(doc.data() as Omit<LikeProps, "id">),
+					});
+				});
+				setLikes(updatedLikes);
+			});
 
-		const unsubscribe = onSnapshot(likesCollectionRef, (querySnapshot) => {
-			const updatedLikes = querySnapshot.docs.map((doc) => ({
-				id: doc.id,
-				...(doc.data() as Omit<LikeProps, "id">),
-			}));
-			setLikes(updatedLikes);
-		});
+			return () => unsubscribe();
+		};
 
-		return () => unsubscribe();
-	}, [db, likeComment, postId]);
+		fetchData();
+	}, [commentId, db, postId, replyId]);
 
 	return (
 		<Modal
@@ -121,4 +128,4 @@ const ComLikeModal = ({ isVisible, onClose }: ComLikeModalProps) => {
 	);
 };
 
-export default ComLikeModal;
+export default ReplyLikeModal;

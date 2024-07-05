@@ -18,9 +18,9 @@ import { FaRegFaceSadCry } from "react-icons/fa6";
 moment.updateLocale("en", {
 	relativeTime: {
 		future: "in %s",
-		past: "%s ago",
-		s: "s", // seconds
-		ss: "%ss", // seconds
+		past: "%s",
+		s: "just now", // seconds
+		ss: "few sec ago", // remove 'ago' here
 		m: "1m", // a minute
 		mm: "%dm", // minutes
 		h: "1h", // an hour
@@ -56,12 +56,12 @@ const LikeModal = ({ isVisible, onClose }: any) => {
 
 			const unsubscribe = onSnapshot(likesRef, (querySnapshot) => {
 				const updatedLikes: LikeProps[] = [];
-				querySnapshot.forEach((doc) =>
+				querySnapshot.forEach((doc) => {
 					updatedLikes.push({
 						id: doc.id,
 						...(doc.data() as Omit<LikeProps, "id">),
-					})
-				);
+					});
+				});
 				setLikes(updatedLikes);
 			});
 

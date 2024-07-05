@@ -1,8 +1,10 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Icons from "./Icons";
 import EditPost from "./EditPost";
+import Moment from "react-moment";
 
 const Post = ({ post, id }: any) => {
 	return (
@@ -29,6 +31,12 @@ const Post = ({ post, id }: any) => {
 							className="text-xs text-gray-400 truncate">
 							@{post.username}
 						</Link>
+						·
+						<Moment
+							fromNow
+							className="text-[0.71rem] text-gray-400">
+							{new Date(post?.timestamp)}
+						</Moment>
 					</div>
 					<Link href={`/posts/${id}`}>
 						<p className="text-sm pt-2">{post.text}</p>

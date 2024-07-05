@@ -18,10 +18,16 @@ const PostImage = async ({ params }: any) => {
 		);
 	}
 
-	let data = {
+	let data: any = [];
+
+	data = {
 		id: querySnapshot.id,
 		...querySnapshot.data(),
 	};
+
+	if (data.timestamp) {
+		data.timestamp = data.timestamp.toMillis();
+	}
 
 	return (
 		<div>

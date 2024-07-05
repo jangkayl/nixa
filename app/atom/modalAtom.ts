@@ -18,3 +18,8 @@ export const comReplyModalState = atom({
 	key: "comReplyModalState",
 	default: false,
 });
+
+export const selectedState = atom({
+	key: "selectedState",
+	default: "Posts",
+});

@@ -12,11 +12,13 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { PiArrowBendDownRightBold } from "react-icons/pi";
+import RepliesIcon from "./RepliesIcon";
 
 const Replies = ({ commentId, comment, originalId }: any) => {
 	const db = getFirestore(app);
 	const [replies, setReplies] = useState<DocumentData>([]);
 	const [isExpanded, setIsExpanded] = useState(false);
+	const [reply, setReply] = useState("");
 
 	const toggleExpand = () => {};
 
@@ -61,9 +63,15 @@ const Replies = ({ commentId, comment, originalId }: any) => {
 										@{rep.username}
 									</p>
 								</Link>
-								<p className="text-xs text-gray-400">
-									- replying to @{comment.username}
-								</p>
+								{rep.username === comment.username ? (
+									<p className="text-[0.7rem] text-gray-400">
+										- replied to himself
+									</p>
+								) : (
+									<p className="text-[0.7rem] text-gray-400">
+										- replied to @{comment.username}
+									</p>
+								)}
 								<div className="flex items-center pt-2 gap-2 w-auto ">
 									<p
 										className={`text-[0.84rem] max-w-[12.5rem] sm:max-w-xs cursor-pointer ${
@@ -78,6 +86,12 @@ const Replies = ({ commentId, comment, originalId }: any) => {
 										{rep?.timestamp?.toDate()}
 									</Moment>
 								</div>
+								<RepliesIcon
+									commentId={commentId}
+									comment={comment}
+									originalId={originalId}
+									reply={rep}
+								/>
 							</div>
 						</div>
 					</div>

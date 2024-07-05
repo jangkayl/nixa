@@ -10,15 +10,13 @@ const LogoDark = () => {
 	const isDarkMode = useResolvedTheme();
 	return (
 		<div>
-			<Link
-				href="#home"
-				scroll={false}>
+			<Link href={"/"}>
 				{isDarkMode ? (
 					<Image
 						className="block sm:hidden hover:scale-105 transition-all duration-150 cursor-pointer"
 						src={darkX}
-						width={30}
-						height={30}
+						width={40}
+						height={40}
 						alt="logo"
 						unoptimized
 					/>

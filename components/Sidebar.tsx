@@ -24,7 +24,9 @@ const Sidebar = () => {
 							src={darkX}
 							alt="logo"
 							priority
-							className="w-16 h-16 rounded-full p-2 transition-all duration-200 dark:hover:bg-gray-800"
+							width={70}
+							height={70}
+							className="rounded-full p-[.05rem] transition-all duration-200 dark:hover:bg-gray-800"
 						/>
 					) : (
 						<Image

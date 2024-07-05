@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import ProfilePost from "./ProfilePost";
 import CommentProfile from "./CommentProfile";
+import { useRecoilState } from "recoil";
+import { selectedState } from "@/app/atom/modalAtom";
 
 const ButtonsProfile = ({ posts, comments }: any) => {
-	const [selected, setSelected] = useState("Posts");
+	const [selected, setSelected] = useRecoilState(selectedState);
 
 	const handleSelect = (buttonName: string) => {
 		setSelected(buttonName);

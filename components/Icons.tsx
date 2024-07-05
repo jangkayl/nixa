@@ -12,6 +12,7 @@ import {
 	DocumentData,
 	getFirestore,
 	onSnapshot,
+	query,
 	serverTimestamp,
 	setDoc,
 } from "firebase/firestore";
@@ -123,11 +124,11 @@ const Icon = ({ id, uid }: any) => {
 					) : (
 						<HiOutlineHeart
 							size={33}
-							className="cursor-pointer hover:bg-red-100 hover:text-red-400 dark:hover:bg-red-950 p-2 rounded-full transition-all duration-150"
+							className="cursor-pointer hover:bg-red-100 hover:text-red-400 dark:hover:bg-red-950 p-2 rounded-full transition-all duration-150 "
 						/>
 					)}
 					{likes.length > 0 && (
-						<p className={`text-xs ${isLiked && "text-red-500"}`}>
+						<p className={`text-sm ${isLiked && "text-red-500"}`}>
 							{likes.length}
 						</p>
 					)}

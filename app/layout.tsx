@@ -29,8 +29,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			suppressHydrationWarning
-			className="scroll-smooth">
+			suppressHydrationWarning>
 			<head>
 				<link
 					rel="icon"
@@ -54,7 +53,7 @@ export default function RootLayout({
 					href="/site.webmanifest"
 				/>
 			</head>
-			<body className={poppins.className}>
+			<body className={`${poppins.className} smooth-scroll`}>
 				<Providers>
 					<SessionWrapper>
 						<div className="flex justify-between max-w-6xl mx-auto">
