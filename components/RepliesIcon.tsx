@@ -159,13 +159,15 @@ const RepliesIcon = ({ commentId, comment, originalId, reply }: any) => {
 							</p>
 						)}
 					</div>
-					<HiOutlineTrash
-						size={33}
-						className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150 dark:hover:bg-red-950"
-						onClick={() => {
-							setModal(true);
-						}}
-					/>
+					{session?.user.uid === reply.uid && (
+						<HiOutlineTrash
+							size={33}
+							className="cursor-pointer hover:bg-red-100 hover:text-red-400 p-2 rounded-full transition-all duration-150 dark:hover:bg-red-950"
+							onClick={() => {
+								setModal(true);
+							}}
+						/>
+					)}
 				</div>
 				{/* Modal */}
 				{modal && (

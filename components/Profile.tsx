@@ -5,6 +5,8 @@ import BackProfile from "./BackProfile";
 
 const Profile = ({ posts, comments }: any) => {
 	const user = posts[0];
+
+	console.log(user.profileImg);
 	return (
 		<div>
 			<BackProfile />
